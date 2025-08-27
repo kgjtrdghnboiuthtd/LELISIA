@@ -72,6 +72,153 @@
             background: var(--ochre);
         }
 
+        /* Music Player Styles */
+        .global-music-player {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: var(--shadow-lg);
+            z-index: 999;
+            width: 320px;
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .music-player {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 15px;
+            margin: 15px 0;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .player-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            gap: 10px;
+        }
+
+        .player-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-warm);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: white;
+        }
+
+        .player-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--dark);
+            line-height: 1.2;
+        }
+
+        .player-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .play-btn {
+            width: 40px;
+            height: 40px;
+            border: none;
+            border-radius: 50%;
+            background: var(--gradient-warm);
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .play-btn:hover {
+            transform: scale(1.1);
+            box-shadow: var(--shadow-md);
+        }
+
+        .time-display {
+            font-size: 12px;
+            color: var(--grey);
+            margin-left: auto;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: #e0e0e0;
+            border-radius: 2px;
+            margin: 10px 0;
+            cursor: pointer;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--gradient-warm);
+            border-radius: 2px;
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+
+        .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .volume-icon {
+            font-size: 14px;
+            color: var(--grey);
+        }
+
+        .volume-slider {
+            flex: 1;
+            height: 4px;
+            background: #e0e0e0;
+            border-radius: 2px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--terracotta);
+            cursor: pointer;
+        }
+
+        .wallpaper-music-player {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .wallpaper-music-player .player-title {
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+
+        .wallpaper-music-player .play-btn {
+            width: 35px;
+            height: 35px;
+            font-size: 14px;
+        }
+
         /* Loader */
         .loader {
             position: fixed;
@@ -740,6 +887,7 @@
             height: 400px;
             position: relative;
             overflow: hidden;
+            background: #f5f5f5;
         }
 
         .wallpaper-image {
@@ -747,6 +895,7 @@
             height: 100%;
             background-size: cover;
             background-position: center;
+            background-repeat: no-repeat;
             transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
@@ -767,6 +916,7 @@
             letter-spacing: 1px;
             color: var(--terracotta);
             box-shadow: var(--shadow-md);
+            z-index: 2;
         }
 
         .wallpaper-overlay {
@@ -798,6 +948,8 @@
             letter-spacing: 1px;
             opacity: 0;
             transition: all 0.4s ease;
+            border: none;
+            cursor: pointer;
         }
 
         .wallpaper-item:hover .wallpaper-quick-view {
@@ -1284,6 +1436,12 @@
             .wallpaper-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
+            
+            .global-music-player {
+                width: 280px;
+                right: 10px;
+                top: 70px;
+            }
         }
 
         @media (max-width: 768px) {
@@ -1347,6 +1505,14 @@
             .cta-buttons {
                 flex-direction: column;
                 width: 100%;
+            }
+            
+            .global-music-player {
+                position: relative;
+                top: auto;
+                right: auto;
+                width: 100%;
+                margin: 20px 0;
             }
         }
 
@@ -1439,44 +1605,6 @@
                 font-size: 1.5rem;
                 text-align: center;
             }
-            .wallpaper-image-container {
-    width: 100%;
-    height: 400px;
-    position: relative;
-    overflow: hidden;
-    background: #f5f5f5; /* Couleur de fond pendant le chargement */
-}
-
-            .wallpaper-image {
-                width: 100%;
-                height: 100%;
-                background-size: cover;
-                background-position: center;
-                background-repeat: no-repeat;
-                transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-            }
-
-            /* Pour s'assurer que les images se chargent bien */
-            .wallpaper-item:hover .wallpaper-image {
-                transform: scale(1.1);
-            }
-
-            /* Badge positionné sur l'image */
-            .wallpaper-badge {
-                position: absolute;
-                top: 20px;
-                left: 20px;
-                padding: 8px 16px;
-                background: rgba(255, 255, 255, 0.95);
-                backdrop-filter: blur(10px);
-                border-radius: 50px;
-                font-size: 11px;
-                font-weight: 600;
-                letter-spacing: 1px;
-                color: var(--terracotta);
-                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-                z-index: 2;
-            }
         }
     </style>
 </head>
@@ -1486,6 +1614,37 @@
         <div class="loader-content">
             <div class="loader-icon"></div>
             <div class="loader-text">LELISIA</div>
+        </div>
+    </div>
+
+    <!-- Global Music Player -->
+    <div class="global-music-player">
+        <div class="music-player">
+            <div class="player-header">
+                <div class="player-icon">🎵</div>
+                <div class="player-title">
+                    <span class="lang-content fr active">Musique Générale LELISIA</span>
+                    <span class="lang-content es">Música General LELISIA</span>
+                </div>
+            </div>
+            <div class="player-controls">
+                <button class="play-btn" onclick="toggleGlobalMusic()">
+                    <span id="globalPlayIcon">▶️</span>
+                </button>
+                <div class="time-display">
+                    <span id="globalCurrentTime">0:00</span> / <span id="globalDuration">0:00</span>
+                </div>
+            </div>
+            <div class="progress-bar" onclick="seekGlobalMusic(event)">
+                <div class="progress-fill" id="globalProgress"></div>
+            </div>
+            <div class="volume-control">
+                <span class="volume-icon">🔊</span>
+                <input type="range" class="volume-slider" min="0" max="100" value="50" onchange="changeGlobalVolume(this.value)">
+            </div>
+            <audio id="globalAudio" preload="metadata">
+                <source src="https://drive.google.com/uc?export=download&id=1KrRLPeof15L71FANQvsJ4qhsnbmsSzeY" type="audio/wav">
+            </audio>
         </div>
     </div>
 
@@ -1610,305 +1769,262 @@
     </section>
 
     <!-- Collection Section -->
-<section class="collection" id="collection">
-    <div class="collection-header">
-        <span class="section-badge">COLLECTION 2025</span>
-        <h2 class="collection-title">
-            <span class="lang-content fr active">Nos Créations Péruviennes</span>
-            <span class="lang-content es">Nuestras Creaciones Peruanas</span>
-        </h2>
-        <p class="collection-subtitle">
-            <span class="lang-content fr active">7 designs exclusifs inspirés des terres andines</span>
-            <span class="lang-content es">7 diseños exclusivos inspirados en las tierras andinas</span>
-        </p>
-    </div>
+    <section class="collection" id="collection">
+        <div class="collection-header">
+            <span class="section-badge">COLLECTION 2025</span>
+            <h2 class="collection-title">
+                <span class="lang-content fr active">Nos Créations Péruviennes</span>
+                <span class="lang-content es">Nuestras Creaciones Peruanas</span>
+            </h2>
+            <p class="collection-subtitle">
+                <span class="lang-content fr active">4 designs exclusifs inspirés des terres andines</span>
+                <span class="lang-content es">4 diseños exclusivos inspirados en las tierras andinas</span>
+            </p>
+        </div>
 
-    <div class="filter-tabs">
-        <button class="filter-tab active">
-            <span class="lang-content fr active">Tous</span>
-            <span class="lang-content es">Todos</span>
-        </button>
-        <button class="filter-tab">
-            <span class="lang-content fr active">Géométrique</span>
-            <span class="lang-content es">Geométrico</span>
-        </button>
-        <button class="filter-tab">
-            <span class="lang-content fr active">Nature</span>
-            <span class="lang-content es">Naturaleza</span>
-        </button>
-        <button class="filter-tab">
-            <span class="lang-content fr active">Mystique</span>
-            <span class="lang-content es">Místico</span>
-        </button>
-    </div>
+        <div class="filter-tabs">
+            <button class="filter-tab active">
+                <span class="lang-content fr active">Tous</span>
+                <span class="lang-content es">Todos</span>
+            </button>
+            <button class="filter-tab">
+                <span class="lang-content fr active">Géométrique</span>
+                <span class="lang-content es">Geométrico</span>
+            </button>
+            <button class="filter-tab">
+                <span class="lang-content fr active">Nature</span>
+                <span class="lang-content es">Naturaleza</span>
+            </button>
+            <button class="filter-tab">
+                <span class="lang-content fr active">Mystique</span>
+                <span class="lang-content es">Místico</span>
+            </button>
+        </div>
 
-    <div class="wallpaper-grid">
-        <!-- 1. Toile de Jouy Lama Andin -->
-        <div class="wallpaper-item">
-            <div class="wallpaper-image-container">
-                <div class="wallpaper-image" style="background-image: url('https://lelisia.com/cdn/shop/files/Immersion_Papier_peint_Toile_de_Jouy_Lama_Andin.webp?v=1756249009');"></div>
-                <span class="wallpaper-badge">BEST SELLER</span>
-                <div class="wallpaper-overlay"></div>
-                <button class="wallpaper-quick-view">
-                    <span class="lang-content fr active">Aperçu rapide</span>
-                    <span class="lang-content es">Vista rápida</span>
-                </button>
-            </div>
-            <div class="wallpaper-info">
-                <h3 class="wallpaper-name">
-                    <span class="lang-content fr active">Toile de Jouy Lama Andin</span>
-                    <span class="lang-content es">Toile de Jouy Lama Andino</span>
-                </h3>
-                <p class="wallpaper-description lang-content fr active">
-                    Élégance française revisitée avec des lamas gracieux dans un camaïeu de bleus célestes.
-                </p>
-                <p class="wallpaper-description lang-content es">
-                    Elegancia francesa revisitada con llamas graciosas en un degradado de azules celestes.
-                </p>
-                <div class="wallpaper-meta">
-                    <div class="wallpaper-price">
-                        34,90€ <span>/m²</span>
+        <div class="wallpaper-grid">
+            <!-- 1. Toile de Jouy Lama Andin -->
+            <div class="wallpaper-item">
+                <div class="wallpaper-image-container">
+                    <div class="wallpaper-image" style="background-image: url('https://lelisia.com/cdn/shop/files/Immersion_Papier_peint_Toile_de_Jouy_Lama_Andin.webp?v=1756249009');"></div>
+                    <span class="wallpaper-badge">BEST SELLER</span>
+                    <div class="wallpaper-overlay"></div>
+                    <button class="wallpaper-quick-view">
+                        <span class="lang-content fr active">Aperçu rapide</span>
+                        <span class="lang-content es">Vista rápida</span>
+                    </button>
+                </div>
+                <div class="wallpaper-info">
+                    <h3 class="wallpaper-name">
+                        <span class="lang-content fr active">Toile de Jouy Lama Andin</span>
+                        <span class="lang-content es">Toile de Jouy Lama Andino</span>
+                    </h3>
+                    <p class="wallpaper-description lang-content fr active">
+                        Élégance française revisitée avec des lamas gracieux dans un camaïeu de bleus célestes.
+                    </p>
+                    <p class="wallpaper-description lang-content es">
+                        Elegancia francesa revisitada con llamas graciosas en un degradado de azules celestes.
+                    </p>
+                    <div class="wallpaper-music-player">
+                        <div class="player-title">🎵 Toile de Jouy Lama Andin</div>
+                        <div class="player-controls">
+                            <button class="play-btn" onclick="toggleWallpaperMusic('toile')">
+                                <span id="toilePlayIcon">▶️</span>
+                            </button>
+                            <div class="time-display">
+                                <span id="toileCurrentTime">0:00</span> / <span id="toileDuration">0:00</span>
+                            </div>
+                        </div>
+                        <div class="progress-bar" onclick="seekWallpaperMusic('toile', event)">
+                            <div class="progress-fill" id="toileProgress"></div>
+                        </div>
+                        <audio id="toileAudio" preload="metadata">
+                            <source src="https://drive.google.com/uc?export=download&id=1b6DVA9MtejGtD8S11CQY0yhK4J0EgaKf" type="audio/wav">
+                        </audio>
                     </div>
-                    <a href="https://lelisia.com/products/papier-peint-toile-de-jouy-lama-andin" class="wallpaper-cta">
-                        <span class="lang-content fr active">Découvrir</span>
-                        <span class="lang-content es">Descubrir</span>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M5 12h14M12 5l7 7-7 7"/>
-                        </svg>
-                    </a>
+                    <div class="wallpaper-meta">
+                        <div class="wallpaper-price">
+                            34,90€ <span>/m²</span>
+                        </div>
+                        <a href="https://lelisia.com/products/papier-peint-toile-de-jouy-lama-andin" class="wallpaper-cta">
+                            <span class="lang-content fr active">Découvrir</span>
+                            <span class="lang-content es">Descubrir</span>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. Motif Pachamama -->
+            <div class="wallpaper-item">
+                <div class="wallpaper-image-container">
+                    <div class="wallpaper-image" style="background-image: url('https://lelisia.com/cdn/shop/files/Papier_peint_Motif_Pachamama_salon.webp?v=1756232204');"></div>
+                    <span class="wallpaper-badge">NOUVEAU</span>
+                    <div class="wallpaper-overlay"></div>
+                    <button class="wallpaper-quick-view">
+                        <span class="lang-content fr active">Aperçu rapide</span>
+                        <span class="lang-content es">Vista rápida</span>
+                    </button>
+                </div>
+                <div class="wallpaper-info">
+                    <h3 class="wallpaper-name">
+                        <span class="lang-content fr active">Motif Pachamama</span>
+                        <span class="lang-content es">Motivo Pachamama</span>
+                    </h3>
+                    <p class="wallpaper-description lang-content fr active">
+                        L'habitat traditionnel andin avec llama bienveillante et textiles géométriques sacrés.
+                    </p>
+                    <p class="wallpaper-description lang-content es">
+                        El hábitat tradicional andino con llama benevolente y textiles geométricos sagrados.
+                    </p>
+                    <div class="wallpaper-music-player">
+                        <div class="player-title">🎵 Sanctuary of Pachamama</div>
+                        <div class="player-controls">
+                            <button class="play-btn" onclick="toggleWallpaperMusic('pachamama')">
+                                <span id="pachamamaPlayIcon">▶️</span>
+                            </button>
+                            <div class="time-display">
+                                <span id="pachamamaCurrentTime">0:00</span> / <span id="pachamamaDuration">0:00</span>
+                            </div>
+                        </div>
+                        <div class="progress-bar" onclick="seekWallpaperMusic('pachamama', event)">
+                            <div class="progress-fill" id="pachamamaProgress"></div>
+                        </div>
+                        <audio id="pachamamaAudio" preload="metadata">
+                            <source src="https://drive.google.com/uc?export=download&id=1-Q7eBfmJONAOCdYPbiYSApVekLDY6J_B" type="audio/wav">
+                        </audio>
+                    </div>
+                    <div class="wallpaper-meta">
+                        <div class="wallpaper-price">
+                            34,90€ <span>/m²</span>
+                        </div>
+                        <a href="https://lelisia.com/products/papier-peint-motif-pachamama" class="wallpaper-cta">
+                            <span class="lang-content fr active">Découvrir</span>
+                            <span class="lang-content es">Descubrir</span>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. Danse des Nuages Incas -->
+            <div class="wallpaper-item">
+                <div class="wallpaper-image-container">
+                    <div class="wallpaper-image" style="background-image: url('https://lelisia.com/cdn/shop/files/Salon_Papier_peint_P_ruvien_Danse_des_Nuages_Incas.webp?v=1756247302');"></div>
+                    <span class="wallpaper-badge">EXCLUSIF</span>
+                    <div class="wallpaper-overlay"></div>
+                    <button class="wallpaper-quick-view">
+                        <span class="lang-content fr active">Aperçu rapide</span>
+                        <span class="lang-content es">Vista rápida</span>
+                    </button>
+                </div>
+                <div class="wallpaper-info">
+                    <h3 class="wallpaper-name">
+                        <span class="lang-content fr active">Danse des Nuages Incas</span>
+                        <span class="lang-content es">Danza de las Nubes Incas</span>
+                    </h3>
+                    <p class="wallpaper-description lang-content fr active">
+                        Ballet mystique au-dessus du Machu Picchu, costumes flamboyants et cieux éternels.
+                    </p>
+                    <p class="wallpaper-description lang-content es">
+                        Ballet místico sobre Machu Picchu, trajes flamantes y cielos eternos.
+                    </p>
+                    <div class="wallpaper-music-player">
+                        <div class="player-title">🎵 Danse des Nuages Incas</div>
+                        <div class="player-controls">
+                            <button class="play-btn" onclick="toggleWallpaperMusic('nuages')">
+                                <span id="nuagesPlayIcon">▶️</span>
+                            </button>
+                            <div class="time-display">
+                                <span id="nuagesCurrentTime">0:00</span> / <span id="nuagesDuration">0:00</span>
+                            </div>
+                        </div>
+                        <div class="progress-bar" onclick="seekWallpaperMusic('nuages', event)">
+                            <div class="progress-fill" id="nuagesProgress"></div>
+                        </div>
+                        <audio id="nuagesAudio" preload="metadata">
+                            <source src="https://drive.google.com/uc?export=download&id=1NmMVfrak64xUsKMAuVIii6Z2f3-_kDXv" type="audio/wav">
+                        </audio>
+                    </div>
+                    <div class="wallpaper-meta">
+                        <div class="wallpaper-price">
+                            34,90€ <span>/m²</span>
+                        </div>
+                        <a href="https://lelisia.com/products/papier-peint-peruvien-danse-des-nuages-incas" class="wallpaper-cta">
+                            <span class="lang-content fr active">Découvrir</span>
+                            <span class="lang-content es">Descubrir</span>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. Amazonie Mystique -->
+            <div class="wallpaper-item">
+                <div class="wallpaper-image-container">
+                    <div class="wallpaper-image" style="background-image: url('https://lelisia.com/cdn/shop/files/Chavin_de_Huantar_motifs_Enfant.webp?v=1756232417');"></div>
+                    <span class="wallpaper-badge">COLORÉ</span>
+                    <div class="wallpaper-overlay"></div>
+                    <button class="wallpaper-quick-view">
+                        <span class="lang-content fr active">Aperçu rapide</span>
+                        <span class="lang-content es">Vista rápida</span>
+                    </button>
+                </div>
+                <div class="wallpaper-info">
+                    <h3 class="wallpaper-name">
+                        <span class="lang-content fr active">Amazonie Mystique</span>
+                        <span class="lang-content es">Amazonía Mística</span>
+                    </h3>
+                    <p class="wallpaper-description lang-content fr active">
+                        Masques rituels colorés et esprits gardiens de la forêt amazonienne.
+                    </p>
+                    <p class="wallpaper-description lang-content es">
+                        Máscaras rituales coloridas y espíritus guardianes del bosque amazónico.
+                    </p>
+                    <div class="wallpaper-music-player">
+                        <div class="player-title">🎵 Amazonie Mystique Lullaby</div>
+                        <div class="player-controls">
+                            <button class="play-btn" onclick="toggleWallpaperMusic('amazonie')">
+                                <span id="amazoniePlayIcon">▶️</span>
+                            </button>
+                            <div class="time-display">
+                                <span id="amazonieCurrentTime">0:00</span> / <span id="amazonieDuration">0:00</span>
+                            </div>
+                        </div>
+                        <div class="progress-bar" onclick="seekWallpaperMusic('amazonie', event)">
+                            <div class="progress-fill" id="amazonieProgress"></div>
+                        </div>
+                        <audio id="amazonieAudio" preload="metadata">
+                            <source src="https://drive.google.com/uc?export=download&id=1dlMmbF1TOP0p-aLGKkx0XKmf8S8J6deS" type="audio/wav">
+                        </audio>
+                    </div>
+                    <div class="wallpaper-meta">
+                        <div class="wallpaper-price">
+                            34,90€ <span>/m²</span>
+                        </div>
+                        <a href="https://lelisia.com/cdn/shop/files/Chavin_de_Huantar_motifs_Enfant.webp?v=1756232417" class="wallpaper-cta">
+                            <span class="lang-content fr active">Découvrir</span>
+                            <span class="lang-content es">Descubrir</span>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
-
-        <!-- 2. Motif Pachamama -->
-        <div class="wallpaper-item">
-            <div class="wallpaper-image-container">
-                <div class="wallpaper-image" style="background-image: url('https://lelisia.com/cdn/shop/files/Papier_peint_Motif_Pachamama_salon.webp?v=1756232204');"></div>
-                <span class="wallpaper-badge">NOUVEAU</span>
-                <div class="wallpaper-overlay"></div>
-                <button class="wallpaper-quick-view">
-                    <span class="lang-content fr active">Aperçu rapide</span>
-                    <span class="lang-content es">Vista rápida</span>
-                </button>
-            </div>
-            <div class="wallpaper-info">
-                <h3 class="wallpaper-name">
-                    <span class="lang-content fr active">Motif Pachamama</span>
-                    <span class="lang-content es">Motivo Pachamama</span>
-                </h3>
-                <p class="wallpaper-description lang-content fr active">
-                    L'habitat traditionnel andin avec llama bienveillante et textiles géométriques sacrés.
-                </p>
-                <p class="wallpaper-description lang-content es">
-                    El hábitat tradicional andino con llama benevolente y textiles geométricos sagrados.
-                </p>
-                <div class="wallpaper-meta">
-                    <div class="wallpaper-price">
-                        34,90€ <span>/m²</span>
-                    </div>
-                    <a href="https://lelisia.com/products/papier-peint-motif-pachamama" class="wallpaper-cta">
-                        <span class="lang-content fr active">Découvrir</span>
-                        <span class="lang-content es">Descubrir</span>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M5 12h14M12 5l7 7-7 7"/>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <!-- 3. Danse des Nuages Incas -->
-        <div class="wallpaper-item">
-            <div class="wallpaper-image-container">
-                <div class="wallpaper-image" style="background-image: url('https://lelisia.com/cdn/shop/files/Salon_Papier_peint_P_ruvien_Danse_des_Nuages_Incas.webp?v=1756247302');"></div>
-                <span class="wallpaper-badge">EXCLUSIF</span>
-                <div class="wallpaper-overlay"></div>
-                <button class="wallpaper-quick-view">
-                    <span class="lang-content fr active">Aperçu rapide</span>
-                    <span class="lang-content es">Vista rápida</span>
-                </button>
-            </div>
-            <div class="wallpaper-info">
-                <h3 class="wallpaper-name">
-                    <span class="lang-content fr active">Danse des Nuages Incas</span>
-                    <span class="lang-content es">Danza de las Nubes Incas</span>
-                </h3>
-                <p class="wallpaper-description lang-content fr active">
-                    Ballet mystique au-dessus du Machu Picchu, costumes flamboyants et cieux éternels.
-                </p>
-                <p class="wallpaper-description lang-content es">
-                    Ballet místico sobre Machu Picchu, trajes flamantes y cielos eternos.
-                </p>
-                <div class="wallpaper-meta">
-                    <div class="wallpaper-price">
-                        34,90€ <span>/m²</span>
-                    </div>
-                    <a href="https://lelisia.com/products/papier-peint-peruvien-danse-des-nuages-incas" class="wallpaper-cta">
-                        <span class="lang-content fr active">Découvrir</span>
-                        <span class="lang-content es">Descubrir</span>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M5 12h14M12 5l7 7-7 7"/>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <!-- 4. Quetzal des Cordillères -->
-        <div class="wallpaper-item">
-            <div class="wallpaper-image-container">
-                <div class="wallpaper-image" style="background-image: url('https://lelisia.com/cdn/shop/files/Papier_peint_Quetzal_des_Cordilleres_1.webp?v=1756231518');"></div>
-                <span class="wallpaper-badge">ARTISANAL</span>
-                <div class="wallpaper-overlay"></div>
-                <button class="wallpaper-quick-view">
-                    <span class="lang-content fr active">Aperçu rapide</span>
-                    <span class="lang-content es">Vista rápida</span>
-                </button>
-            </div>
-            <div class="wallpaper-info">
-                <h3 class="wallpaper-name">
-                    <span class="lang-content fr active">Quetzal des Cordillères</span>
-                    <span class="lang-content es">Quetzal de las Cordilleras</span>
-                </h3>
-                <p class="wallpaper-description lang-content fr active">
-                    Le serpent à plumes mythique, divinité protectrice aux entrelacs géométriques sacrés.
-                </p>
-                <p class="wallpaper-description lang-content es">
-                    La serpiente emplumada mítica, deidad protectora con entrelazados geométricos sagrados.
-                </p>
-                <div class="wallpaper-meta">
-                    <div class="wallpaper-price">
-                        34,90€ <span>/m²</span>
-                    </div>
-                    <a href="https://lelisia.com/products/papier-peint-quetzal-des-cordilleres" class="wallpaper-cta">
-                        <span class="lang-content fr active">Découvrir</span>
-                        <span class="lang-content es">Descubrir</span>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M5 12h14M12 5l7 7-7 7"/>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <!-- 5. Relief Ancestral Andin -->
-        <div class="wallpaper-item">
-            <div class="wallpaper-image-container">
-                <div class="wallpaper-image" style="background-image: url('https://lelisia.com/cdn/shop/files/Chavin_culture_bas-relief.webp?v=1756231904');"></div>
-                <span class="wallpaper-badge">PREMIUM</span>
-                <div class="wallpaper-overlay"></div>
-                <button class="wallpaper-quick-view">
-                    <span class="lang-content fr active">Aperçu rapide</span>
-                    <span class="lang-content es">Vista rápida</span>
-                </button>
-            </div>
-            <div class="wallpaper-info">
-                <h3 class="wallpaper-name">
-                    <span class="lang-content fr active">Relief Ancestral Andin</span>
-                    <span class="lang-content es">Relieve Ancestral Andino</span>
-                </h3>
-                <p class="wallpaper-description lang-content fr active">
-                    Relief sculpté aux tonalités ocre, visages énigmatiques des temples millénaires.
-                </p>
-                <p class="wallpaper-description lang-content es">
-                    Relieve esculpido en tonos ocre, rostros enigmáticos de templos milenarios.
-                </p>
-                <div class="wallpaper-meta">
-                    <div class="wallpaper-price">
-                        34,90€ <span>/m²</span>
-                    </div>
-                    <a href="https://lelisia.com/products/papier-peint-relief-ancestral-andin" class="wallpaper-cta">
-                        <span class="lang-content fr active">Découvrir</span>
-                        <span class="lang-content es">Descubrir</span>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M5 12h14M12 5l7 7-7 7"/>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <!-- 6. Amazonie Mystique -->
-        <div class="wallpaper-item">
-            <div class="wallpaper-image-container">
-                <div class="wallpaper-image" style="background-image: url('https://lelisia.com/cdn/shop/files/Chavin_de_Huantar_motifs_Enfant.webp?v=1756232417');"></div>
-                <span class="wallpaper-badge">COLORÉ</span>
-                <div class="wallpaper-overlay"></div>
-                <button class="wallpaper-quick-view">
-                    <span class="lang-content fr active">Aperçu rapide</span>
-                    <span class="lang-content es">Vista rápida</span>
-                </button>
-            </div>
-            <div class="wallpaper-info">
-                <h3 class="wallpaper-name">
-                    <span class="lang-content fr active">Amazonie Mystique</span>
-                    <span class="lang-content es">Amazonía Mística</span>
-                </h3>
-                <p class="wallpaper-description lang-content fr active">
-                    Masques rituels colorés et esprits gardiens de la forêt amazonienne.
-                </p>
-                <p class="wallpaper-description lang-content es">
-                    Máscaras rituales coloridas y espíritus guardianes del bosque amazónico.
-                </p>
-                <div class="wallpaper-meta">
-                    <div class="wallpaper-price">
-                        34,90€ <span>/m²</span>
-                    </div>
-                    <a href="https://lelisia.com/cdn/shop/files/Chavin_de_Huantar_motifs_Enfant.webp?v=1756232417" class="wallpaper-cta">
-                        <span class="lang-content fr active">Découvrir</span>
-                        <span class="lang-content es">Descubrir</span>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M5 12h14M12 5l7 7-7 7"/>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <!-- 7. Chakana Céleste -->
-        <div class="wallpaper-item">
-            <div class="wallpaper-image-container">
-                <div class="wallpaper-image" style="background-image: url('https://lelisia.com/cdn/shop/files/Motif_inspiration_andin.webp?v=1756231075');"></div>
-                <span class="wallpaper-badge">SPIRITUEL</span>
-                <div class="wallpaper-overlay"></div>
-                <button class="wallpaper-quick-view">
-                    <span class="lang-content fr active">Aperçu rapide</span>
-                    <span class="lang-content es">Vista rápida</span>
-                </button>
-            </div>
-            <div class="wallpaper-info">
-                <h3 class="wallpaper-name">
-                    <span class="lang-content fr active">Chakana Céleste</span>
-                    <span class="lang-content es">Chakana Celestial</span>
-                </h3>
-                <p class="wallpaper-description lang-content fr active">
-                    Géométrie sacrée andine, méditation visuelle sur l'harmonie cosmique.
-                </p>
-                <p class="wallpaper-description lang-content es">
-                    Geometría sagrada andina, meditación visual sobre la armonía cósmica.
-                </p>
-                <div class="wallpaper-meta">
-                    <div class="wallpaper-price">
-                        34,90€ <span>/m²</span>
-                    </div>
-                    <a href="https://lelisia.com/products/papier-peint-inspiration-chakana-celeste" class="wallpaper-cta">
-                        <span class="lang-content fr active">Découvrir</span>
-                        <span class="lang-content es">Descubrir</span>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M5 12h14M12 5l7 7-7 7"/>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+    </section>
 
     <!-- Stats Section -->
     <section class="stats-section">
         <div class="stats-container">
             <div class="stat-item">
-                <div class="stat-number">7</div>
+                <div class="stat-number">4</div>
                 <div class="stat-label">
                     <span class="lang-content fr active">CRÉATIONS EXCLUSIVES</span>
                     <span class="lang-content es">CREACIONES EXCLUSIVAS</span>
@@ -2096,7 +2212,7 @@
                     <li><a href="https://lelisia.com/products/papier-peint-toile-de-jouy-lama-andin">Toile de Jouy Lama</a></li>
                     <li><a href="https://lelisia.com/products/papier-peint-motif-pachamama">Pachamama</a></li>
                     <li><a href="https://lelisia.com/products/papier-peint-peruvien-danse-des-nuages-incas">Danse des Nuages</a></li>
-                    <li><a href="https://lelisia.com/products/papier-peint-inspiration-chakana-celeste">Chakana Céleste</a></li>
+                    <li><a href="#">Amazonie Mystique</a></li>
                 </ul>
             </div>
             <div class="footer-column">
@@ -2133,6 +2249,10 @@
     </footer>
 
     <script>
+        // Global Variables
+        let currentGlobalAudio = null;
+        let currentWallpaperAudio = null;
+        
         // Loader
         window.addEventListener('load', () => {
             setTimeout(() => {
@@ -2191,10 +2311,136 @@
                         behavior: 'smooth',
                         block: 'start'
                     });
-                    // Close mobile menu if open
                     document.getElementById('navMenu').classList.remove('active');
                     document.getElementById('mobileMenuToggle').classList.remove('active');
                 }
+            });
+        });
+
+        // Global Music Player Functions
+        function toggleGlobalMusic() {
+            const audio = document.getElementById('globalAudio');
+            const icon = document.getElementById('globalPlayIcon');
+            
+            if (currentWallpaperAudio && !currentWallpaperAudio.paused) {
+                currentWallpaperAudio.pause();
+                updateWallpaperIcon(currentWallpaperAudio.id.replace('Audio', ''), '▶️');
+            }
+            
+            if (audio.paused) {
+                audio.play();
+                icon.textContent = '⏸️';
+                currentGlobalAudio = audio;
+            } else {
+                audio.pause();
+                icon.textContent = '▶️';
+                currentGlobalAudio = null;
+            }
+        }
+
+        function changeGlobalVolume(value) {
+            const audio = document.getElementById('globalAudio');
+            audio.volume = value / 100;
+        }
+
+        function seekGlobalMusic(event) {
+            const audio = document.getElementById('globalAudio');
+            const progressBar = event.currentTarget;
+            const clickX = event.offsetX;
+            const width = progressBar.offsetWidth;
+            const newTime = (clickX / width) * audio.duration;
+            audio.currentTime = newTime;
+        }
+
+        // Wallpaper Music Player Functions
+        function toggleWallpaperMusic(wallpaperType) {
+            const audio = document.getElementById(wallpaperType + 'Audio');
+            const icon = document.getElementById(wallpaperType + 'PlayIcon');
+            
+            if (currentGlobalAudio && !currentGlobalAudio.paused) {
+                currentGlobalAudio.pause();
+                document.getElementById('globalPlayIcon').textContent = '▶️';
+            }
+            
+            if (currentWallpaperAudio && currentWallpaperAudio !== audio && !currentWallpaperAudio.paused) {
+                currentWallpaperAudio.pause();
+                updateWallpaperIcon(currentWallpaperAudio.id.replace('Audio', ''), '▶️');
+            }
+            
+            if (audio.paused) {
+                audio.play();
+                icon.textContent = '⏸️';
+                currentWallpaperAudio = audio;
+            } else {
+                audio.pause();
+                icon.textContent = '▶️';
+                currentWallpaperAudio = null;
+            }
+        }
+
+        function seekWallpaperMusic(wallpaperType, event) {
+            const audio = document.getElementById(wallpaperType + 'Audio');
+            const progressBar = event.currentTarget;
+            const clickX = event.offsetX;
+            const width = progressBar.offsetWidth;
+            const newTime = (clickX / width) * audio.duration;
+            audio.currentTime = newTime;
+        }
+
+        function updateWallpaperIcon(wallpaperType, icon) {
+            document.getElementById(wallpaperType + 'PlayIcon').textContent = icon;
+        }
+
+        // Format time helper
+        function formatTime(seconds) {
+            if (isNaN(seconds)) return '0:00';
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        // Audio Event Listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Global Audio
+            const globalAudio = document.getElementById('globalAudio');
+            
+            globalAudio.addEventListener('loadedmetadata', () => {
+                document.getElementById('globalDuration').textContent = formatTime(globalAudio.duration);
+            });
+            
+            globalAudio.addEventListener('timeupdate', () => {
+                const progress = (globalAudio.currentTime / globalAudio.duration) * 100;
+                document.getElementById('globalProgress').style.width = progress + '%';
+                document.getElementById('globalCurrentTime').textContent = formatTime(globalAudio.currentTime);
+            });
+            
+            globalAudio.addEventListener('ended', () => {
+                document.getElementById('globalPlayIcon').textContent = '▶️';
+                currentGlobalAudio = null;
+            });
+            
+            // Wallpaper Audios
+            const wallpaperTypes = ['toile', 'pachamama', 'nuages', 'amazonie'];
+            
+            wallpaperTypes.forEach(type => {
+                const audio = document.getElementById(type + 'Audio');
+                
+                audio.addEventListener('loadedmetadata', () => {
+                    document.getElementById(type + 'Duration').textContent = formatTime(audio.duration);
+                });
+                
+                audio.addEventListener('timeupdate', () => {
+                    const progress = (audio.currentTime / audio.duration) * 100;
+                    document.getElementById(type + 'Progress').style.width = progress + '%';
+                    document.getElementById(type + 'CurrentTime').textContent = formatTime(audio.currentTime);
+                });
+                
+                audio.addEventListener('ended', () => {
+                    document.getElementById(type + 'PlayIcon').textContent = '▶️';
+                    if (currentWallpaperAudio === audio) {
+                        currentWallpaperAudio = null;
+                    }
+                });
             });
         });
 
