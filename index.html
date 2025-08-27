@@ -85,6 +85,46 @@
             z-index: 999;
             width: 320px;
             border: 1px solid rgba(0,0,0,0.1);
+            transform: translateX(0);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .global-music-player.hidden {
+            transform: translateX(100%);
+        }
+
+        .player-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .player-header-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .close-btn {
+            width: 30px;
+            height: 30px;
+            border: none;
+            border-radius: 50%;
+            background: rgba(198, 117, 87, 0.1);
+            color: var(--terracotta);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: var(--terracotta);
+            color: white;
+            transform: scale(1.1);
         }
 
         .music-player {
@@ -94,13 +134,6 @@
             margin: 15px 0;
             box-shadow: var(--shadow-sm);
             border: 1px solid rgba(0,0,0,0.05);
-        }
-
-        .player-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-            gap: 10px;
         }
 
         .player-icon {
@@ -217,6 +250,36 @@
             width: 35px;
             height: 35px;
             font-size: 14px;
+        }
+
+        /* Show/Hide Player Button */
+        .show-player-btn {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            border: none;
+            border-radius: 50%;
+            background: var(--gradient-warm);
+            color: white;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: var(--shadow-lg);
+            z-index: 998;
+            transition: all 0.3s ease;
+        }
+
+        .show-player-btn:hover {
+            transform: scale(1.1);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .show-player-btn.visible {
+            display: flex;
         }
 
         /* Loader */
@@ -1514,6 +1577,11 @@
                 width: 100%;
                 margin: 20px 0;
             }
+            
+            .show-player-btn {
+                top: 70px;
+                right: 10px;
+            }
         }
 
         /* Mobile Menu */
@@ -1617,15 +1685,25 @@
         </div>
     </div>
 
+    <!-- Show Player Button -->
+    <button class="show-player-btn" id="showPlayerBtn" onclick="showGlobalPlayer()">
+        🎵
+    </button>
+
     <!-- Global Music Player -->
-    <div class="global-music-player">
+    <div class="global-music-player" id="globalMusicPlayer">
         <div class="music-player">
             <div class="player-header">
-                <div class="player-icon">🎵</div>
-                <div class="player-title">
-                    <span class="lang-content fr active">Musique Générale LELISIA</span>
-                    <span class="lang-content es">Música General LELISIA</span>
+                <div class="player-header-left">
+                    <div class="player-icon">🎵</div>
+                    <div class="player-title">
+                        <span class="lang-content fr active">Musique Générale LELISIA</span>
+                        <span class="lang-content es">Música General LELISIA</span>
+                    </div>
                 </div>
+                <button class="close-btn" onclick="hideGlobalPlayer()">
+                    ✕
+                </button>
             </div>
             <div class="player-controls">
                 <button class="play-btn" onclick="toggleGlobalMusic()">
@@ -1643,7 +1721,7 @@
                 <input type="range" class="volume-slider" min="0" max="100" value="50" onchange="changeGlobalVolume(this.value)">
             </div>
             <audio id="globalAudio" preload="metadata">
-                <source src="https://drive.google.com/uc?export=download&id=1KrRLPeof15L71FANQvsJ4qhsnbmsSzeY" type="audio/wav">
+                <source src="https://cdn.jsdelivr.net/gh/kgjtrdghnboiuthtd/LELISIA@4e32387/Lelisia-Inca-Peru-Music (1).wav" type="audio/wav">
             </audio>
         </div>
     </div>
@@ -1777,8 +1855,8 @@
                 <span class="lang-content es">Nuestras Creaciones Peruanas</span>
             </h2>
             <p class="collection-subtitle">
-                <span class="lang-content fr active">4 designs exclusifs inspirés des terres andines</span>
-                <span class="lang-content es">4 diseños exclusivos inspirados en las tierras andinas</span>
+                <span class="lang-content fr active">7 designs exclusifs inspirés des terres andines</span>
+                <span class="lang-content es">7 diseños exclusivos inspirados en las tierras andinas</span>
             </p>
         </div>
 
@@ -1838,7 +1916,7 @@
                             <div class="progress-fill" id="toileProgress"></div>
                         </div>
                         <audio id="toileAudio" preload="metadata">
-                            <source src="https://drive.google.com/uc?export=download&id=1b6DVA9MtejGtD8S11CQY0yhK4J0EgaKf" type="audio/wav">
+                            <source src="https://cdn.jsdelivr.net/gh/kgjtrdghnboiuthtd/LELISIA@4e32387/Toile_de_Jouy_Lama_Andin_2025-08-27T033019.wav" type="audio/wav">
                         </audio>
                     </div>
                     <div class="wallpaper-meta">
@@ -1892,7 +1970,7 @@
                             <div class="progress-fill" id="pachamamaProgress"></div>
                         </div>
                         <audio id="pachamamaAudio" preload="metadata">
-                            <source src="https://drive.google.com/uc?export=download&id=1-Q7eBfmJONAOCdYPbiYSApVekLDY6J_B" type="audio/wav">
+                            <source src="https://cdn.jsdelivr.net/gh/kgjtrdghnboiuthtd/LELISIA@4e32387/Sanctuary_of_Pachamama_2025-08-27T034716.wav" type="audio/wav">
                         </audio>
                     </div>
                     <div class="wallpaper-meta">
@@ -1946,7 +2024,7 @@
                             <div class="progress-fill" id="nuagesProgress"></div>
                         </div>
                         <audio id="nuagesAudio" preload="metadata">
-                            <source src="https://drive.google.com/uc?export=download&id=1NmMVfrak64xUsKMAuVIii6Z2f3-_kDXv" type="audio/wav">
+                            <source src="https://cdn.jsdelivr.net/gh/kgjtrdghnboiuthtd/LELISIA@4e32387/Danse_des_Nuages_Incas_2025-08-27T033454.wav" type="audio/wav">
                         </audio>
                     </div>
                     <div class="wallpaper-meta">
@@ -2000,14 +2078,125 @@
                             <div class="progress-fill" id="amazonieProgress"></div>
                         </div>
                         <audio id="amazonieAudio" preload="metadata">
-                            <source src="https://drive.google.com/uc?export=download&id=1dlMmbF1TOP0p-aLGKkx0XKmf8S8J6deS" type="audio/wav">
+                            <source src="https://cdn.jsdelivr.net/gh/kgjtrdghnboiuthtd/LELISIA@4e32387/Amazonie_Mystique_Lullaby_2025-08-27T034017.wav" type="audio/wav">
                         </audio>
                     </div>
                     <div class="wallpaper-meta">
                         <div class="wallpaper-price">
                             34,90€ <span>/m²</span>
                         </div>
-                        <a href="https://lelisia.com/cdn/shop/files/Chavin_de_Huantar_motifs_Enfant.webp?v=1756232417" class="wallpaper-cta">
+                        <a href="#" class="wallpaper-cta">
+                            <span class="lang-content fr active">Découvrir</span>
+                            <span class="lang-content es">Descubrir</span>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. Quetzal des Cordillères -->
+            <div class="wallpaper-item">
+                <div class="wallpaper-image-container">
+                    <div class="wallpaper-image" style="background-image: url('https://lelisia.com/cdn/shop/files/Papier_peint_Quetzal_des_Cordilleres_1.webp?v=1756231518');"></div>
+                    <span class="wallpaper-badge">ARTISANAL</span>
+                    <div class="wallpaper-overlay"></div>
+                    <button class="wallpaper-quick-view">
+                        <span class="lang-content fr active">Aperçu rapide</span>
+                        <span class="lang-content es">Vista rápida</span>
+                    </button>
+                </div>
+                <div class="wallpaper-info">
+                    <h3 class="wallpaper-name">
+                        <span class="lang-content fr active">Quetzal des Cordillères</span>
+                        <span class="lang-content es">Quetzal de las Cordilleras</span>
+                    </h3>
+                    <p class="wallpaper-description lang-content fr active">
+                        Le serpent à plumes mythique, divinité protectrice aux entrelacs géométriques sacrés.
+                    </p>
+                    <p class="wallpaper-description lang-content es">
+                        La serpiente emplumada mítica, deidad protectora con entrelazados geométricos sagrados.
+                    </p>
+                    <div class="wallpaper-meta">
+                        <div class="wallpaper-price">
+                            34,90€ <span>/m²</span>
+                        </div>
+                        <a href="https://lelisia.com/products/papier-peint-quetzal-des-cordilleres" class="wallpaper-cta">
+                            <span class="lang-content fr active">Découvrir</span>
+                            <span class="lang-content es">Descubrir</span>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6. Relief Ancestral Andin -->
+            <div class="wallpaper-item">
+                <div class="wallpaper-image-container">
+                    <div class="wallpaper-image" style="background-image: url('https://lelisia.com/cdn/shop/files/Chavin_culture_bas-relief.webp?v=1756231904');"></div>
+                    <span class="wallpaper-badge">PREMIUM</span>
+                    <div class="wallpaper-overlay"></div>
+                    <button class="wallpaper-quick-view">
+                        <span class="lang-content fr active">Aperçu rapide</span>
+                        <span class="lang-content es">Vista rápida</span>
+                    </button>
+                </div>
+                <div class="wallpaper-info">
+                    <h3 class="wallpaper-name">
+                        <span class="lang-content fr active">Relief Ancestral Andin</span>
+                        <span class="lang-content es">Relieve Ancestral Andino</span>
+                    </h3>
+                    <p class="wallpaper-description lang-content fr active">
+                        Relief sculpté aux tonalités ocre, visages énigmatiques des temples millénaires.
+                    </p>
+                    <p class="wallpaper-description lang-content es">
+                        Relieve esculpido en tonos ocre, rostros enigmáticos de templos milenarios.
+                    </p>
+                    <div class="wallpaper-meta">
+                        <div class="wallpaper-price">
+                            34,90€ <span>/m²</span>
+                        </div>
+                        <a href="https://lelisia.com/products/papier-peint-relief-ancestral-andin" class="wallpaper-cta">
+                            <span class="lang-content fr active">Découvrir</span>
+                            <span class="lang-content es">Descubrir</span>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 7. Chakana Céleste -->
+            <div class="wallpaper-item">
+                <div class="wallpaper-image-container">
+                    <div class="wallpaper-image" style="background-image: url('https://lelisia.com/cdn/shop/files/Motif_inspiration_andin.webp?v=1756231075');"></div>
+                    <span class="wallpaper-badge">SPIRITUEL</span>
+                    <div class="wallpaper-overlay"></div>
+                    <button class="wallpaper-quick-view">
+                        <span class="lang-content fr active">Aperçu rapide</span>
+                        <span class="lang-content es">Vista rápida</span>
+                    </button>
+                </div>
+                <div class="wallpaper-info">
+                    <h3 class="wallpaper-name">
+                        <span class="lang-content fr active">Chakana Céleste</span>
+                        <span class="lang-content es">Chakana Celestial</span>
+                    </h3>
+                    <p class="wallpaper-description lang-content fr active">
+                        Géométrie sacrée andine, méditation visuelle sur l'harmonie cosmique.
+                    </p>
+                    <p class="wallpaper-description lang-content es">
+                        Geometría sagrada andina, meditación visual sobre la armonía cósmica.
+                    </p>
+                    <div class="wallpaper-meta">
+                        <div class="wallpaper-price">
+                            34,90€ <span>/m²</span>
+                        </div>
+                        <a href="https://lelisia.com/products/papier-peint-inspiration-chakana-celeste" class="wallpaper-cta">
                             <span class="lang-content fr active">Découvrir</span>
                             <span class="lang-content es">Descubrir</span>
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -2024,7 +2213,7 @@
     <section class="stats-section">
         <div class="stats-container">
             <div class="stat-item">
-                <div class="stat-number">4</div>
+                <div class="stat-number">7</div>
                 <div class="stat-label">
                     <span class="lang-content fr active">CRÉATIONS EXCLUSIVES</span>
                     <span class="lang-content es">CREACIONES EXCLUSIVAS</span>
@@ -2212,7 +2401,10 @@
                     <li><a href="https://lelisia.com/products/papier-peint-toile-de-jouy-lama-andin">Toile de Jouy Lama</a></li>
                     <li><a href="https://lelisia.com/products/papier-peint-motif-pachamama">Pachamama</a></li>
                     <li><a href="https://lelisia.com/products/papier-peint-peruvien-danse-des-nuages-incas">Danse des Nuages</a></li>
+                    <li><a href="https://lelisia.com/products/papier-peint-quetzal-des-cordilleres">Quetzal des Cordillères</a></li>
+                    <li><a href="#">Relief Ancestral</a></li>
                     <li><a href="#">Amazonie Mystique</a></li>
+                    <li><a href="https://lelisia.com/products/papier-peint-inspiration-chakana-celeste">Chakana Céleste</a></li>
                 </ul>
             </div>
             <div class="footer-column">
@@ -2301,21 +2493,30 @@
             menuToggle.classList.toggle('active');
         }
 
-        // Smooth Scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                    document.getElementById('navMenu').classList.remove('active');
-                    document.getElementById('mobileMenuToggle').classList.remove('active');
-                }
-            });
-        });
+        // Global Music Player Show/Hide Functions
+        function hideGlobalPlayer() {
+            const player = document.getElementById('globalMusicPlayer');
+            const showBtn = document.getElementById('showPlayerBtn');
+            
+            player.classList.add('hidden');
+            showBtn.classList.add('visible');
+            
+            // Pause music if playing
+            const audio = document.getElementById('globalAudio');
+            if (!audio.paused) {
+                audio.pause();
+                document.getElementById('globalPlayIcon').textContent = '▶️';
+                currentGlobalAudio = null;
+            }
+        }
+
+        function showGlobalPlayer() {
+            const player = document.getElementById('globalMusicPlayer');
+            const showBtn = document.getElementById('showPlayerBtn');
+            
+            player.classList.remove('hidden');
+            showBtn.classList.remove('visible');
+        }
 
         // Global Music Player Functions
         function toggleGlobalMusic() {
@@ -2441,6 +2642,22 @@
                         currentWallpaperAudio = null;
                     }
                 });
+            });
+        });
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    document.getElementById('navMenu').classList.remove('active');
+                    document.getElementById('mobileMenuToggle').classList.remove('active');
+                }
             });
         });
 
